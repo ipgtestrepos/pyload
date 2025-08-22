@@ -1,0 +1,5 @@
+company_name,product_name,release,eccn,ipid,ip_type,category,description,email,directory
+mystic,ac97,"1.0.0",3A002,14556,"soft_ip","logic", "AC97 DMA Controller for Milkymist SoC v1.0",alex.rosso@ipgrid.com,"samp_metadata/product/mystic/ac97"
+mystic,dmx,"2.1.2",4G909,12345,"soft_ip","memory", "DMX2 Direct Memory Interface for Miklymist SoC v1.0",alex.rosso@ipgrid.com,"samp_metadata/product/mystic/dmx"
+mystic,memtest,"2.1.2",3X909,15432,"soft_ip","ctrlr", "Memory Test Block for Milkymist SoC v1.0",rahul.sighl@ipgrid.com,"samp_metadata/product/mystic/memtest"
+mystic,tmu2,"2.1.2",8B090,16771,"soft_ip","gpu", "TMU2 Texture Mapping Unit for Milkymist SoC v1.0",rahul.sighl@ipgrid.com,"samp_metadata/product/mystic/tmu2"

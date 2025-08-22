@@ -1,0 +1,17 @@
+version: 1.4.10
+root_dir: /home/dan/go/src/ip/ipgrid/resources/qs_python/samp_metadata/product/mystic/tmu2
+manifest:
+    product_id: 6e6b2126-fb3b-428c-a36f-a5a2644949e1
+    release_id: 21f3a5c0-eb1b-430a-8f01-67fde934dfcc
+    company: mystic
+    name: tmu2
+    release: 2.1.2
+    uri: mystic/tmu2/2-1-2
+    product_type: soft_ip
+    product_category: ""
+    use_semver: false
+    package_sources: true
+    fp_extensions: .c .v
+    product_index: ipindex
+    last_update: 2025-08-07T22:25:28.101877-04:00
+    description: '"TMU2 Texture Mapping Unit for Milkymist SoC v1.0"'

@@ -1,0 +1,17 @@
+version: 1.4.10
+root_dir: /home/dan/go/src/ip/ipgrid/resources/qs_python/samp_metadata/product/mystic/ac97
+manifest:
+    product_id: 69e3a5ba-e5b5-47be-8faa-75228a7c1d45
+    release_id: 28360724-78c1-4860-86f9-1613ec6861dd
+    company: mystic
+    name: ac97
+    release: 1.0.0
+    uri: mystic/ac97/1-0-0
+    product_type: soft_ip
+    product_category: ""
+    use_semver: false
+    package_sources: true
+    fp_extensions: .v
+    product_index: ipindex
+    last_update: 2025-08-07T22:25:26.176968-04:00
+    description: '"AC97 DMA Controller for Milkymist SoC v1.0"'

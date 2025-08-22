@@ -1,0 +1,17 @@
+version: 1.4.10
+root_dir: /home/dan/go/src/ip/ipgrid/resources/qs_python/samp_metadata/product/mystic/dmx
+manifest:
+    product_id: 75a0df65-9159-4344-9a80-9cc3dd776b97
+    release_id: 7eb22aa8-9114-4d9f-9742-58c64818fd37
+    company: mystic
+    name: dmx
+    release: 2.1.2
+    uri: mystic/dmx/2-1-2
+    product_type: soft_ip
+    product_category: ""
+    use_semver: false
+    package_sources: true
+    fp_extensions: .v
+    product_index: ipindex
+    last_update: 2025-08-07T22:25:26.914499-04:00
+    description: '"DMX2 Direct Memory Interface for Miklymist SoC v1.0"'
