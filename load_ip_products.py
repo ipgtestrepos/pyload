@@ -99,6 +99,8 @@ def exec_command(cmd, global_args) -> tuple[dict[str,Any] | None, bool]:
         print(f"❌ command failed. Stopping.  return code: {retcode}")
         quoted_cmd = ' '.join(shlex.quote(arg) for arg in cmd)
         print(f"➡️   {quoted_cmd}")
+        print(f"➡️   stdout: {stdout}")
+        print(f"➡️   stderr: {stderr}")
         return None, False
     if stderr:
         print(f"⚠️ Error output:\n{stderr}")
@@ -109,61 +111,27 @@ def exec_command(cmd, global_args) -> tuple[dict[str,Any] | None, bool]:
         data = process_json(stdout)
         return data, True 
 
-def build_prod_init_command(row, global_args) -> list[str]:
-    cmd = ["ipg", "prod", "init"]
+def build_prod_import_command(row, global_args) -> list[str]:
+    cmd = ["ipg", "prod", "import"]
 
     company = row.get("company_name", "").strip() or None
     product = row.get("product_name", "").strip() or None
-    description = row.get("description", "").strip() or None 
-    ip_type = row.get("ip_type", "soft_ip").strip() or None 
+    release = row.get("release", "").strip() or None
+    directory = row.get("directory", "").strip() or None
+    description = row.get("description", "").strip() or None
+    ip_type = row.get("ip_type", "soft_ip").strip() or None
     ip_type = ip_type_map.get(ip_type, ip_type)  # convert from HARDIP, SOFTIP to ipgrid keywords
-    if company == None or product == None:
+    if company == None or product == None or release == None or directory == None:
         return None
-    
+
     cmd.extend(["--company", company])
     cmd.extend(["--product", product])
+    cmd.extend(["--release", release])
     if description != "":
         cmd.extend(["--description", description])
     cmd.extend(["--package-sources"])
     cmd.extend(["--type", ip_type])
-
-    cmd.extend(["--quiet"])
-    cmd.extend(["--format", "json"])
-
-    return cmd
-
-def build_prod_add_command(row, global_args) -> list[str]:
-    cmd = ["ipg", "prod", "add", "."]
-
-    cmd.extend(["--quiet"])
-    cmd.extend(["--format", "json"])   
-
-    return cmd
-
-def build_prod_reg_command(row, global_args) -> list[str]:
-    cmd = ["ipg", "prod", "register"]
-
-    company = row.get("company_name", "").strip() or None
-    product = row.get("product_name", "").strip() or None 
-    release = row.get("release", "").strip() or None
-    # fpath = row.get("directory", "").strip() or None
-    # if company == None or product == None or release == None or fpath == None:
-    #     return None
-    if company == None or product == None or release == None:
-        return None
-    
-    cmd.extend(["--company", company])
-    cmd.extend(["--product", product])
-    cmd.extend(["--release", release])
-
-    # ftype = archive_path_type(fpath)
-
-    # if (ftype == "dir"):
-    #     cmd.extend(["--source-root", fpath])
-    # elif ftype == "tar":
-    #     cmd.extend(["--archive", fpath])
-    # elif ftype == "tgz":
-    #     cmd.extend(["--archive", fpath])
+    cmd.extend(["--source-root", "."])    # the command pushes into the ip directory
 
     cmd.extend(["--quiet"])
     cmd.extend(["--format", "json"])
@@ -299,35 +267,12 @@ def main(csv_file, global_args, no_exec):
                 product = row.get("product_name", "").strip() or None 
                 print(f"  ...Loading IP product {company}/{product}. ")
 
-                # Step 1.  Add product, source files and release
+                # Step 1.   Import product
                 #--------------------------------
-                cmd = build_prod_init_command(row, global_args)
+                cmd = build_prod_import_command(row, global_args)
                 if no_exec:
                     quoted_cmd = ' '.join(shlex.quote(arg) for arg in cmd)
-                    print(f"➡️ Row {idx} init command: {quoted_cmd}")
-                else:
-                    with pushd(ipdirectory):
-                        data, ok = exec_command(cmd, global_args) 
-                        if not ok:
-                            print(data)
-                            continue
-                #--------------------------------
-                cmd = build_prod_add_command(row, global_args)
-                if no_exec:
-                    quoted_cmd = ' '.join(shlex.quote(arg) for arg in cmd)
-                    print(f"➡️ Row {idx} add command: {quoted_cmd}")
-                else:
-                    with pushd(ipdirectory):
-                        data, ok = exec_command(cmd, global_args) 
-                        if not ok:
-                            print(data)
-                            continue
-
-                #--------------------------------
-                cmd = build_prod_reg_command(row, global_args)
-                if no_exec:
-                    quoted_cmd = ' '.join(shlex.quote(arg) for arg in cmd)
-                    print(f"➡️ Row {idx} register command: {quoted_cmd}")
+                    print(f"➡️ Row {idx} import command: {quoted_cmd}")
                 else:
                     with pushd(ipdirectory):
                         data, ok = exec_command(cmd, global_args) 
