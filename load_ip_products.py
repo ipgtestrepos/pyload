@@ -208,6 +208,7 @@ def build_label_create_command(row, global_args) -> list[str]:
 
     cmd.extend(["--label", label_name])
     cmd.extend(["--payload", json.dumps(payload)])
+    cmd.extend(["--public", "true"])
 
     cmd.extend(["--quiet"])
     cmd.extend(["--format", "json"])
